@@ -1,0 +1,44 @@
+### https://taskfile.dev
+###---------------------
+
+version: '2'
+
+vars:
+  VERSION: 0.0.0
+  APPNAME: jargon
+  BUILTAT:
+    sh: date +%s
+  LDFLAGS: -X 'main._version={{.VERSION}}' -X 'main._builtAt={{.BUILTAT}}'
+
+tasks:
+  lint:
+    cmds:
+      - golangci-lint run
+
+  test:
+    cmds:
+      - go test -cover -v ./...
+
+  log:
+    cmds:
+      - go build -buildmode=plugin -o $GOPATH/bin/{{.APPNAME}}.log.so ./plugins/log/*.go
+
+  services:
+    cmds:
+      - go build -buildmode=plugin -o $GOPATH/bin/{{.APPNAME}}.services.so ./plugins/services/*.go
+
+  plugins:
+    cmds:
+      - task: log
+      - task: services
+
+  build:
+    cmds:
+      - go build -ldflags "{{.LDFLAGS}}" -o $GOPATH/bin/{{.APPNAME}} ./cmd/{{.APPNAME}}/*.go
+
+  default:
+    cmds:
+      - task: lint
+      - task: test
+      - task: plugins
+      - task: build

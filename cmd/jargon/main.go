@@ -65,9 +65,8 @@ func cmdHelp() error {
 	fmt.Println()
 	fmt.Println("The command line client")
 	fmt.Println("================================================================================")
-	fmt.Println()
 	fmt.Println("Usage:")
-	fmt.Printf("\t%s [command [options]]\n", app)
+	fmt.Printf("  %s [command [options]]\n", app)
 	fmt.Println()
 	fmt.Println("Available commands:")
 
@@ -85,13 +84,12 @@ func cmdHelp() error {
 	sort.Strings(commands)
 
 	for _, cmd := range commands {
-		fmt.Println("\t" + cmd)
+		fmt.Println("  " + cmd)
 	}
 
-	fmt.Println()
 	fmt.Println("--------------------------------------------------------------------------------")
-	fmt.Printf("\tUse '%s [command] --help' for more information about a command.\n", app)
-	fmt.Println("--------------------------------------------------------------------------------")
+	fmt.Printf("  Use '%s [command] --help' for more information about a command.\n", app)
+	fmt.Println("================================================================================")
 	fmt.Println()
 
 	return nil
@@ -104,12 +102,12 @@ func cmdVersion() error {
 	}
 
 	fmt.Println()
-	fmt.Println("jargon")
-	fmt.Println("============================================================")
-	fmt.Println("\tversion:\t", _version)
-	fmt.Println("\tbuilt at:\t", time.Unix(builtAt, 0).String())
-	fmt.Println("------------------------------------------------------------")
-	fmt.Println("\t\t\tby Archivage Numérique © INA", time.Now().Year())
+	fmt.Println("  jargon")
+	fmt.Println("-----------------------------------------------")
+	fmt.Println("  version  :", _version)
+	fmt.Println("  built at :", time.Unix(builtAt, 0).String())
+	fmt.Println("  by       : Archivage Numérique © INA", time.Now().Year())
+	fmt.Println("-----------------------------------------------")
 	fmt.Println()
 
 	return nil
